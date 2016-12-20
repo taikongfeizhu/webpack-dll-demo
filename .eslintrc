@@ -1,0 +1,38 @@
+{
+  "extends":[
+    "airbnb",
+    "strict-react"
+  ],
+  "plugins": [
+    "eslint-plugin-react",
+    "react"
+  ],
+  "ecmaFeatures": {"jsx": true},
+  "rules": {
+    "indent": [1, 2],
+    "comma-dangle": [1, "never"],
+    "func-names": 0,
+    "strict": [2, "global"],
+    "no-var": 0,
+    "new-cap": 0,
+    "no-undef": 1,
+    "import/no-unresolved":0,
+    "vars-on-top": 0,
+    "semi": 0,
+    "no-console": 0,
+    "camelcase": 2,
+    "global-require": 0,
+    "max-len": 0,
+    "object-shorthand":0,
+    "arrow-body-style": 2,
+    "object-curly-spacing": [2, "always"],
+    "dot-notation": [2, {"allowPattern": "^[a-z]+(_[a-z]+)+$"}],
+    "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-space-before-closing": 0,
+    "react/no-multi-comp": 0,
+    "react/forbid-prop-types": 0,
+    "react/jsx-no-bind": 0,
+    "react/jsx-closing-bracket-location": [1, {"location": "after-props"}]
+  }
+}
