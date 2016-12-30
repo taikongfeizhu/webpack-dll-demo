@@ -1,6 +1,6 @@
 {
   "name": "webpack-dll-demo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "webpack dll demo",
   "keywords": [
     "design",
@@ -14,15 +14,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://review.byted.org/#/admin/projects/ee/mersea"
+    "url": "https://github.com/taikongfeizhu/webpack-dll-demo"
   },
   "files": [
     "components",
     "style"
   ],
-  "publishConfig": {
-    "registry": "http://npm.byted.org/"
-  },
   "dependencies": {
     "antd": "^2.5.2",
     "classnames": "^2.2.5",
@@ -128,6 +125,6 @@
     "dll": "NODE_ENV=production webpack --config build/webpack.dll.config.js --progress",
     "dll-debug": "NODE_ENV=development webpack --config build/webpack.dll.config.js --progress"
   },
-  "author": "huangjian <huangjian@bytedance.com>",
+  "author": "huangjian <huangjian1820@gmail.com>",
   "license": "GNU"
 }

@@ -5,10 +5,7 @@ import { getOpportunityList } from '../actions/opportunity';
 
 const mapStateToProps = state => {
   return {
-    opportunityListData: state.opportunity.get('opportunityListData'),
-    opportunityListTotal: state.opportunity.get('opportunityListTotal'),
-    routing: state.routing.locationBeforeTransitions,
-    fetching: state.opportunity.get('fetching')
+    routing: state.routing.locationBeforeTransitions
   }
 };
 

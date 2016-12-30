@@ -3,7 +3,7 @@
 # 步骤一：安装依赖必备资源
 
 ```shell
-$ npm install -g webpack webpack-dev-server babel-cli gulp
+$ npm install -g webpack webpack-dev-server gulp
 $ npm install
 ```
 
@@ -30,16 +30,18 @@ $ npm run dll
 # 通用依赖资源：react，react-router,react-dom，history
 
 # 页面开发资源静态地址:
-> http://127.0.0.1:3001/static/common/debug/lib.js
-> http://127.0.0.1:3001/static/js/manifest.js
-> http://127.0.0.1:3001/static/js/vendor.js
-> http://127.0.0.1:3001/static/js/app.js
+* http://127.0.0.1:3001/static/common/debug/lib.js
+* http://127.0.0.1:3001/static/js/manifest.js
+* http://127.0.0.1:3001/static/js/vendor.js
+* http://127.0.0.1:3001/static/js/app.js
 
 ## 书写规范
-eslint[http://eslint.org/]
-eslint-plugin-react[https://github.com/yannickcr/eslint-plugin-react/tree/master/docs/rules]
-redux[https://github.com/erikras/ducks-modular-redux]
+* eslint[http://eslint.org/]
+* eslint-plugin-react[https://github.com/yannickcr/eslint-plugin-react/tree/master/docs/rules]
+* redux[https://github.com/erikras/ducks-modular-redux]
 
+## 详细说明
+webpack 构建性能优化策略小结 [https://segmentfault.com/a/1190000007891318]
 
 
         
