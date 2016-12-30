@@ -1,9 +1,12 @@
-var path = require('path')
-var config = require('../config')
-var utils = require('./utils')
-var projectRoot = path.resolve(__dirname, '../')
+var path = require('path');
+var os = require('os');
+var config = require('../config');
+var utils = require('./utils');
+var projectRoot = path.resolve(__dirname, '../');
 var devRoot = path.resolve(projectRoot, 'dev');
 var webpack = require('webpack');
+var HappyPack = require('happypack');
+var happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
@@ -43,7 +46,7 @@ module.exports = {
     preLoaders: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'happypack/loader?id=happybabel',
         include: projectRoot,
         exclude: /node_modules/
       }
@@ -101,6 +104,14 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
+    }),
+
+    new HappyPack({
+      id: 'happybabel',
+      loaders: ['babel-loader'],
+      threadPool: happyThreadPool,
+      cache: true,
+      verbose: true
     })
   ],
   eslint: {

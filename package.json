@@ -28,6 +28,7 @@
     "classnames": "^2.2.5",
     "core-decorators": "^0.15.0",
     "es6-shim": "^0.35.0",
+    "happypack": "^3.0.2",
     "history": "2.1.2",
     "immutable": "^3.8.1",
     "less": "^2.7.1",
