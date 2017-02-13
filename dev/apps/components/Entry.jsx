@@ -2,14 +2,20 @@ import React, {Component, PropTypes} from "react";
 import { BreadCrumbs } from '../widgets/breadCrumbs';
 import { withRouter } from "react-router";
 
-@withRouter
+
 class Entry extends Component {
 
-  constructor(arg){
+  getChildContext() {
+    return {
+      color: 'gray'
+    };
+  }
+
+  constructor(arg) {
     super(...arg);
     this.state = {
       searchParam: null
-    }
+    };
     this.fetchData = this.fetchData.bind(this);
   }
 
@@ -40,4 +46,8 @@ Entry.propTypes = {
 
 }
 
-export default Entry;
+Entry.childContextTypes = {
+  color: PropTypes.string.isRequired
+};
+
+export default withRouter(Entry);

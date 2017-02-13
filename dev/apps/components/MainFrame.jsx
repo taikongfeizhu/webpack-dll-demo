@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Icon } from 'antd';
-import NavList from './navList';
+import NavList from './NavList';
 import classnames from 'classnames';
 
 class MainFrame extends Component {
