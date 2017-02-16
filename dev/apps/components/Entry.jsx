@@ -27,10 +27,17 @@ class Entry extends Component {
   }
 
   componentDidMount() {
+    // d3.select(this.node).text('hello page');
+    const node = this.node;
+    const a = [1 ,2, 3];
+    var b = a;
+    b = [4, 5, 6];
+    console.log(a);
+    console.log(b);
 
   }
 
-  handleOnChange(value) {
+  handleOnChange = (value) => {
     console.log(value,'>>>');
   }
 
@@ -42,8 +49,7 @@ class Entry extends Component {
         </div>
         <div className="content">
           <div id="target" ref={(c) => this.node = c}>
-            <DateFilter
-              onChange={(value)=>{this.handleOnChange(value)}}/>
+            <DateFilter onChange={this.handleOnChange}/>
           </div>
         </div>
       </div>

@@ -24,6 +24,7 @@
     "antd": "^2.5.2",
     "classnames": "^2.2.5",
     "core-decorators": "^0.15.0",
+    "d3": "^4.6.0",
     "es6-shim": "^0.35.0",
     "happypack": "^3.0.2",
     "history": "2.1.2",

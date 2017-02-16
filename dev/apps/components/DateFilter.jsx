@@ -86,7 +86,17 @@ class DateFilter extends Component {
   }
 
   makeWeekPicker(defaultValue) {
-    const disabledWeek = (current) => current && current.valueOf() > Date.now() - DAYTIMES;
+
+    function disabledWeek(current) {
+      const isFarDate = current.valueOf() > Date.now() - DAYTIMES;
+      const isPreDte = current.valueOf() < Date.now() - 8 * DAYTIMES;
+      let result = false;
+      if(isPreDte || isFarDate) {
+        result = true;
+      }
+      return result;
+    }
+
     // 周数据
     const weekPicker = (
       <RangePicker
