@@ -7,7 +7,9 @@ const DAYTIMES = 86400000;
 const DATEFORMAT = {
   startDay: 'YYYY-MM-DD 00:00:00',
   endDay: 'YYYY-MM-DD 23:00:00',
+  year: 'YYYY',
   month: 'YYYY-MM',
+  day: 'YYYY-MM-DD',
   quarter: 'YYYY-Q',
   quarterString: 'YYYY年Q季度'
 };
@@ -32,32 +34,41 @@ class DateFilter extends Component {
       datePickerType: type
     });
     const defaultValue = this.createDefaultValue(type);
-    const result = this.selectedValueToArray(type, defaultValue);
-    onChange(result);
+    const data = this.selectedValueToArray(type, defaultValue);
+    onChange({
+      type,
+      data
+    });
   }
 
   handleDatePickerChange(date, dateString, type) {
     const {onChange} = this.props;
-    let result = [];
+    let data = [];
     if (date) {
       this.setState({
         selectedValue: date
       });
-      result = this.selectedValueToArray(type, date);
+      data = this.selectedValueToArray(type, date);
     }
-    onChange(result);
+    onChange({
+      type,
+      data
+    });
   }
 
   handleRangePickerChange(date, dateString, type) {
     const {onChange} = this.props;
-    let result = [];
+    let data = [];
     if (Array.isArray(date) && date.length > 0) {
       this.setState({
         selectedValue: date
       });
-      result = this.selectedValueToArray(type, date);
+      data = this.selectedValueToArray(type, date);
     }
-    onChange(result);
+    onChange({
+      type,
+      data
+    });
   }
 
   makeDayPicker(value) {
@@ -120,12 +131,13 @@ class DateFilter extends Component {
     return quarterPicker;
   }
 
-  makeCustomPicker() {
+  makeCustomPicker(defaultValue) {
     //自定义过滤
     const disabledWeek = (current) => current && current.valueOf() > Date.now() - DAYTIMES;
     // 周数据
     const customPicker = (
       <RangePicker
+        defaultValue={defaultValue}
         disabledDate={disabledWeek}
         onChange={(date, dateString) => this.handleRangePickerChange(date, dateString, 'custom')}
       />
@@ -170,8 +182,12 @@ class DateFilter extends Component {
     } else if (type === 'week') {
       resultArray = [value[0].format(DATEFORMAT.startDay), value[1].format(DATEFORMAT.endDay)];
     } else if (type === 'month') {
-      resultArray = [moment(value.format(DATEFORMAT.month)).startOf('month').format(DATEFORMAT.startDay),
-        moment(value.format(DATEFORMAT.month)).endOf('month').format(DATEFORMAT.endDay)];
+      let endDay = moment(value.format(DATEFORMAT.month)).endOf('month').format(DATEFORMAT.endDay)
+      // 如果选择为当月, 则选择结束为本月当天
+      if (value.year() === moment().year() && value.month() === moment().month()) {
+        endDay = moment().subtract(1, 'days').format(DATEFORMAT.endDay);
+      }
+      resultArray = [moment(value.format(DATEFORMAT.month)).startOf('month').format(DATEFORMAT.startDay), endDay];
     } else if (type === 'quarter') {
       resultArray = this.parseQuarterDate(value);
     } else if (type === 'custom') {
