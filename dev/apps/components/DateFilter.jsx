@@ -150,7 +150,7 @@ class DateFilter extends Component {
       day: moment().subtract(1, 'days'),
       week: [moment().subtract(8, 'days'), moment().subtract(1, 'days')],
       month: moment(),
-      quarter: [moment(), moment().subtract(3, 'months'), moment().subtract(6, 'months'), moment().subtract(9, 'months')],
+      quarter: [moment(), moment().subtract(1, 'quarter'), moment().subtract(2, 'quarter'), moment().subtract(3, 'quarter')],
       custom: [moment().subtract(1, 'days'), moment().subtract(1, 'days')]
     }
     return defaultValue[type];
@@ -175,6 +175,10 @@ class DateFilter extends Component {
     return monthArea[quarter];
   }
 
+  getLastDay() {
+    return moment().subtract(1, 'days');
+  }
+
   selectedValueToArray(type, value) {
     let resultArray = [];
     if (type === 'day') {
@@ -185,7 +189,7 @@ class DateFilter extends Component {
       let endDay = moment(value.format(DATEFORMAT.month)).endOf('month').format(DATEFORMAT.endDay)
       // 如果选择为当月, 则选择结束为本月当天
       if (value.year() === moment().year() && value.month() === moment().month()) {
-        endDay = moment().subtract(1, 'days').format(DATEFORMAT.endDay);
+        endDay = this.getLastDay().format(DATEFORMAT.endDay);
       }
       resultArray = [moment(value.format(DATEFORMAT.month)).startOf('month').format(DATEFORMAT.startDay), endDay];
     } else if (type === 'quarter') {
