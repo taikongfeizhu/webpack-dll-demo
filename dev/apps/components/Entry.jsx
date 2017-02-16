@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from "react";
+import * as d3 from "d3";
+import DateFilter from './DateFilter';
 import { BreadCrumbs } from '../widgets/breadCrumbs';
 import { withRouter } from "react-router";
 
@@ -16,6 +18,7 @@ class Entry extends Component {
     this.state = {
       searchParam: null
     };
+    this.node = null;
     this.fetchData = this.fetchData.bind(this);
   }
 
@@ -24,8 +27,11 @@ class Entry extends Component {
   }
 
   componentDidMount() {
-    const { routing:{ query } } = this.props;
-    this.fetchData(query);
+
+  }
+
+  handleOnChange(value) {
+    console.log(value,'>>>');
   }
 
   render() {
@@ -35,7 +41,10 @@ class Entry extends Component {
           <BreadCrumbs titleBar="资源搜索" titlePrev="接口查询" link="/entry/"/>
         </div>
         <div className="content">
-          Entry Page
+          <div id="target" ref={(c) => this.node = c}>
+            <DateFilter
+              onChange={(value)=>{this.handleOnChange(value)}}/>
+          </div>
         </div>
       </div>
     );
