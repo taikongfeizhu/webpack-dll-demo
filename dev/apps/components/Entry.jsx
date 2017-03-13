@@ -29,12 +29,24 @@ class Entry extends Component {
   componentDidMount() {
     // d3.select(this.node).text('hello page');
     const node = this.node;
-    const a = [1 ,2, 3];
-    var b = a;
-    b = [4, 5, 6];
-    console.log(a);
-    console.log(b);
 
+    function* foo() {
+      yield 'a';
+      yield 'b';
+    }
+
+
+    function* bar() {
+      yield 'x';
+      yield* foo();
+      yield 'y';
+    }
+
+    var b = bar();
+    console.log(b.next());
+    console.log(b.next());
+    console.log(b.next());
+    console.log(b.next());
   }
 
   handleOnChange = (value) => {
