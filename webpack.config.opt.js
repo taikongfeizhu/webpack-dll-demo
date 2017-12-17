@@ -243,7 +243,7 @@ module.exports = {
 
     new AddAssetHtmlPlugin([
       {
-        filepath: path.resolve(__dirname, './public/lib/min/lib.240a63661.js'),
+        filepath: path.resolve(__dirname, './public/lib/min/lib.7608601b7.js'),
         outputPath: 'lib/min',
         publicPath: '/dist/lib/min',
         includeSourcemap: false

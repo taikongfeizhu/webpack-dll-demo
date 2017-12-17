@@ -9,7 +9,6 @@ const lib = [
   'react-redux',
   'prop-types',
   'immutable',
-  'lodash',
   'babel-polyfill'
 ]
 

@@ -34,7 +34,6 @@ config/base.yaml
 /site/static/js/
 /site/static/css/
 /site/static/images/
-/publish/static/
 publish/index.html
 /dist/
 
