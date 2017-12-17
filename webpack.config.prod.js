@@ -2,7 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BundlePlugin = require('webpack-bundle-analyzer')
 const autoprefixer = require('autoprefixer'); // 自动加前缀的插件
+const BundleAnalyzerPlugin = BundlePlugin.BundleAnalyzerPlugin
 const lib = require('./config/lib.dependencies')
 
 // 判断当前运行环境是开发模式还是生产模式
@@ -225,6 +227,10 @@ module.exports = {
       }
     }),
    // 配置打包后的样式文件名称
-    new ExtractTextPlugin({filename: 'css/[name].[contenthash].css', allChunks: true, disable: false})
+    new ExtractTextPlugin({filename: 'css/[name].[contenthash].css', allChunks: true, disable: false}),
+
+   // 可视化分析工具
+    new BundleAnalyzerPlugin()
+
   ]
 }

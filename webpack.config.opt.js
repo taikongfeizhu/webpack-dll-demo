@@ -250,6 +250,7 @@ module.exports = {
       }
     ]),
 
+    // 可视化分析工具
     new BundleAnalyzerPlugin()
   ]
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import LazyLoader from 'components/LazyLoader'
-import { Button } from 'antd'
+import { Button, Table } from 'antd'
 import fetchAPI from 'api'
 
 class Content extends React.Component {
@@ -51,6 +51,30 @@ class Content extends React.Component {
     )
   }
 
+  columns(){
+    const columns = [{
+      title: '书名',
+      dataIndex: 'title',
+    },
+    {
+      title: '作者',
+      dataIndex: 'author'
+    },
+    {
+      title: '售价',
+      dataIndex: 'currentPrice'
+    },
+    {
+      title: '出版社',
+      dataIndex: 'press'
+    },
+    {
+      title: '发行日期',
+      dataIndex: 'publishedDate'
+    }]
+    return columns
+  }
+
   render () {
     const { loadModules, bookList } = this.state
     return (
@@ -60,9 +84,10 @@ class Content extends React.Component {
         <div>
           {loadModules && this.listContent()}
         </div>
-        <div>
-          {bookList.length>0 && JSON.stringify(bookList)}
-        </div>
+        <Table
+          rowKey={(record)=>record._id}
+          dataSource={bookList}
+          columns={this.columns()}/>
       </div>
     )
   }
