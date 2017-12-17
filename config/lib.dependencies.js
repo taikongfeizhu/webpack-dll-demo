@@ -1,19 +1,17 @@
-// 资源依赖包，提前编译
-
+// react工程组件，用于提前编译
 const lib = [
   'react',
   'react-dom',
-  'react-router',
-  'history',
+  'react-router-dom',
   'redux',
-  'react-redux',
-  'react-router-redux',
-  'react-addons-pure-render-mixin',
-  'react-addons-css-transition-group',
-  'redux-actions',
+  'redux-saga',
   'redux-thunk',
+  'react-redux',
+  'prop-types',
   'immutable',
-  'whatwg-fetch'
-];
+  'lodash',
+  'babel-polyfill'
+]
 
-module.exports = lib;
+
+module.exports = lib

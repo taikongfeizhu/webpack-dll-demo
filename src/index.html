@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv=”Content-Type” content=”text/html; charset="utf-8">
+    <title>webpack-react-startkit</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no">
+    <style>
+        #preloader {display: none}
+        @-webkit-keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@-moz-keyframes spin{0%{-moz-transform:rotate(0deg)}100%{-moz-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}#preloader{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;background:#000;backface-visibility:hidden}#preloader > div{display:block;position:relative;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:3px solid transparent;border-top-color:#e85656;backface-visibility:hidden;transform:translate3d(0, 0, 0);backface-visibility:hidden;animation:spin 2s linear infinite}#preloader > div:before{content:"";position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:50%;border:3px solid transparent;border-top-color:#209e91;-webkit-animation:spin 3s linear infinite;animation:spin 3s linear infinite}#preloader > div:after{content:"";position:absolute;top:15px;left:15px;right:15px;bottom:15px;border-radius:50%;border:3px solid transparent;border-top-color:#dfb81c;animation:spin 1.5s linear infinite}
+    </style>
+</head>
+<body>
+    <div id="root" style="height: 100%; display: none;"></div>
+    <div id="preloader">
+        <div>
+        </div>
+    </div>
+    <script src="//cdn.bootcss.com/axios/0.17.1/axios.min.js"></script>
+</body>
+</html>
