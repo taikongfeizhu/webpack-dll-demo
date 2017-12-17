@@ -43,6 +43,8 @@ module.exports = {
     // 项目输出路径
     publicPath: '/dist/', // 生产环境需要制定上线的目录路径
     chunkFilename: 'js/[name].[chunkhash].js',
+     // 从外部拉取资源
+    libraryTarget: 'umd'
   },
 
   module: {

@@ -57,6 +57,8 @@ module.exports = {
     publicPath: 'http://127.0.0.1:3000/',
     // 对于热替换(HMR)是必须的，让 webpack 知道在哪里载入热更新的模块(chunk)
     chunkFilename: 'js/[name].[chunkhash].js',
+    // 从外部拉取资源
+    libraryTarget: 'umd'
   },
 
   module: {
