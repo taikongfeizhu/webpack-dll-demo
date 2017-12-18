@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundlePlugin = require('webpack-bundle-analyzer')
 const autoprefixer = require('autoprefixer'); // 自动加前缀的插件

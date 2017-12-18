@@ -31,7 +31,7 @@ const externals = {
 module.exports = {
   cache: true,
   context: path.resolve(__dirname, './src'),
-  devtool: '#source-map',
+  devtool: '#cheap-eval-source-map',
   entry: {
     index: [
       'react-hot-loader/patch',

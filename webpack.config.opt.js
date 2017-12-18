@@ -1,7 +1,8 @@
 const path = require('path')
 const os = require('os')
 const webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HappyPack = require('happypack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundlePlugin = require('webpack-bundle-analyzer')
 const autoprefixer = require('autoprefixer'); // 自动加前缀的插件
@@ -54,9 +55,8 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        use: [
-          'babel-loader?cacheDirectory'
-        ],
+        // use: ['babel-loader?cacheDirectory'],
+        use: 'happypack/loader',
         exclude: /^node_modules$/,
       },
       {
@@ -253,6 +253,10 @@ module.exports = {
      /moment[\/\\]locale$/,
      /(en-gb|zh-cn).js/
     ),
+  
+    new HappyPack({
+      loaders: [ 'babel-loader?cacheDirectory' ]
+    }),
 
     new AddAssetHtmlPlugin([
       {
