@@ -6,6 +6,7 @@
     "start": "NODE_ENV=development node ./bin/dev-server.js",
     "lint": "eslint src",
     "dll": "NODE_ENV=production webpack --config ./config/webpack.dll.lib.js --progress",
+    "tree": "rimraf tree-shaking/dist && NODE_ENV=production webpack --progress --colors --config ./tree-shaking/webpack.config.tree.js",
     "build": "rimraf dist && NODE_ENV=production webpack --progress --colors -p --config webpack.config.prod.js",
     "build:opt": "rimraf dist && NODE_ENV=production webpack --progress --colors -p --config webpack.config.opt.js",
     "test": "jest"
