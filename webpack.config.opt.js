@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundlePlugin = require('webpack-bundle-analyzer')
 const autoprefixer = require('autoprefixer'); // 自动加前缀的插件
 const BundleAnalyzerPlugin = BundlePlugin.BundleAnalyzerPlugin
-const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
 // 判断当前运行环境是开发模式还是生产模式
@@ -26,6 +26,8 @@ const externals = {
   'react-router-dom': 'ReactRouterDOM',
   'prop-types': 'PropTypes'
 }
+
+
 
 module.exports = {
   cache: true,
@@ -204,20 +206,29 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    // 压缩时去掉js所有注释，包括copyright信息。
-    new UglifyJsParallelPlugin({
-      workers: os.cpus().length,
-      mangle: true,
+  
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        ie8: false,
+        ecma: 8,
+        mangle: true,
+        output: {
+          comments: false,
+        },
+        compress: {
+          warnings: false,
+        },
+        warnings: false
+      },
       sourceMap: false,
-      compressor: {
-        warnings: false,
-        drop_debugger: true,
-        dead_code: true
-      }
+      cache: true,
+      parallel: os.cpus().length * 6
     }),
+  
     new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html',
       hash: false,
@@ -245,7 +256,7 @@ module.exports = {
 
     new AddAssetHtmlPlugin([
       {
-        filepath: path.resolve(__dirname, './public/lib/min/lib.7608601b7.js'),
+        filepath: path.resolve(__dirname, './public/lib/min/lib.a7c1fbede.js'),
         outputPath: 'lib/min',
         publicPath: '/dist/lib/min',
         includeSourcemap: false

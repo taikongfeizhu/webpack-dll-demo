@@ -39,7 +39,7 @@ class App extends Component {
           />
 
           <Route path="/async-componet" render={(props)=>
-            <AsyncComponet {...props} component={() => import(/* webpackChunkName: "asyc" */ './Async')} />
+            <AsyncComponet {...props} component={()=>import(/* webpackChunkName: "asyc" */ './Async')} />
           }/>
 
           <Route path="/list" render={(props)=>

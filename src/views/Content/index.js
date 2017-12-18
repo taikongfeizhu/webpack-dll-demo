@@ -1,6 +1,6 @@
 import React from 'react'
 import LazyLoader from 'components/LazyLoader'
-import { Button, Table } from 'antd'
+import { Button, Table, DatePicker } from 'antd'
 import fetchAPI from 'api'
 
 class Content extends React.Component {
@@ -81,6 +81,7 @@ class Content extends React.Component {
       <div title='脚本异步加载模块'>
         <Button onClick={this.handleLoadHot}>load</Button>
         <Button onClick={this.handleFetchData}>Fetch</Button>
+        <DatePicker />
         <div>
           {loadModules && this.listContent()}
         </div>

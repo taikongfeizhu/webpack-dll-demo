@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HappyPack = require('happypack')
 const argv = require('yargs').argv
 const webpackServerConfig = require('./server/server.config')
 const lib = require('./config/lib.dependencies')
@@ -65,9 +66,8 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        use: [
-          'babel-loader?cacheDirectory'
-        ],
+        // use: ['babel-loader?cacheDirectory'],
+        use: 'happypack/loader',
         exclude: /^node_modules$/,
       },
       {
@@ -156,6 +156,7 @@ module.exports = {
     extensions: ['.jsx', '.js', '.less', '.json'],
     alias: {
       "actions": path.resolve(__dirname, "src/actions"),
+      "views": path.resolve(__dirname, "src/views"),
       "constant": path.resolve(__dirname, "src/constant"),
       "static": path.resolve(__dirname, "src/static"),
       "routes": path.resolve(__dirname, "src/routes"),
@@ -171,7 +172,9 @@ module.exports = {
     }
   },
 
-  externals: {},
+  externals: {
+    // axios: 'axios'
+  },
 
   plugins: [
     // 将第三方库单独打包
@@ -180,6 +183,11 @@ module.exports = {
     // 开启全局的模块热替换(HMR)
     new webpack.NamedModulesPlugin(),
     // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
+    // scope-hoisting
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new HappyPack({
+      loaders: [ 'babel-loader?cacheDirectory' ]
+    }),
 
     new HtmlWebpackPlugin({
       template: 'index.html',

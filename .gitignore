@@ -25,7 +25,6 @@ _site
 dist
 /widgets/
 ts
-lib
 typings.json
 typings
 tsconfig.json

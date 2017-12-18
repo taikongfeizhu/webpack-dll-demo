@@ -216,6 +216,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html',
       hash: false,
