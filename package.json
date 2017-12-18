@@ -1,6 +1,6 @@
 {
   "name": "webpack-dll-demo",
-  "version": "3.2.0",
+  "version": "2.2.0",
   "description": "",
   "scripts": {
     "start": "NODE_ENV=development node ./bin/dev-server.js",
@@ -18,7 +18,6 @@
   "author": "huangjian",
   "license": "MIT",
   "devDependencies": {
-    "add-asset-html-webpack-plugin": "^2.1.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -65,9 +64,10 @@
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.6",
     "webpack": "^3.10.0",
+    "add-asset-html-webpack-plugin": "^2.1.2",
     "webpack-bundle-analyzer": "^2.9.1",
-    "webpack-dev-server": "^2.9.7",
-    "webpack-uglify-parallel": "^0.1.4"
+    "uglifyjs-webpack-plugin": "^1.1.4",
+    "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
     "antd": "^2.9.1",
@@ -93,7 +93,6 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
-    "redux-saga": "^0.16.0",
-    "uglifyjs-webpack-plugin": "^1.1.4"
+    "redux-saga": "^0.16.0"
   }
 }
