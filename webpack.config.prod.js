@@ -212,8 +212,16 @@ module.exports = {
         warnings: false,
       },
     }),
-
-    new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
+  
+    new webpack.optimize.CommonsChunkPlugin({
+      names: 'vendor',
+      minChunks: Infinity
+    }),
+  
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      chunks: 'vendor'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -229,6 +237,12 @@ module.exports = {
         removeAttributeQuotes: true
       }
     }),
+  
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /(en-gb|zh-cn).js/
+    ),
+    
    // 配置打包后的样式文件名称
     new ExtractTextPlugin({filename: 'css/[name].[contenthash].css', allChunks: true, disable: false}),
 

@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HappyPack = require('happypack')
-const argv = require('yargs').argv
+const HappyThreadPool = HappyPack.ThreadPool({ size: 6 });
 const webpackServerConfig = require('./server/server.config')
 const lib = require('./config/lib.dependencies')
 
@@ -67,7 +67,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         // use: ['babel-loader?cacheDirectory'],
-        use: 'happypack/loader',
+        use: 'happypack/loader?id=jsx',
         exclude: /^node_modules$/,
       },
       {
@@ -178,7 +178,16 @@ module.exports = {
 
   plugins: [
     // 将第三方库单独打包
-    new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: 'vendor',
+      minChunks: Infinity
+    }),
+  
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      chunks: 'vendor'
+    }),
+    
     new webpack.HotModuleReplacementPlugin(),
     // 开启全局的模块热替换(HMR)
     new webpack.NamedModulesPlugin(),
@@ -186,8 +195,15 @@ module.exports = {
     // scope-hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HappyPack({
-      loaders: [ 'babel-loader?cacheDirectory' ]
+      id: 'jsx',
+      threadPool: HappyThreadPool,
+      loaders: [ 'babel-loader' ]
     }),
+  
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /(en-gb|zh-cn).js/
+    ),
 
     new HtmlWebpackPlugin({
       template: 'index.html',

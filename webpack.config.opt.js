@@ -1,7 +1,5 @@
 const path = require('path')
-const os = require('os')
 const webpack = require('webpack')
-const HappyPack = require('happypack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundlePlugin = require('webpack-bundle-analyzer')
@@ -9,6 +7,7 @@ const autoprefixer = require('autoprefixer'); // 自动加前缀的插件
 const BundleAnalyzerPlugin = BundlePlugin.BundleAnalyzerPlugin
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const lib = require('./config/lib.dependencies')
 
 // 判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -28,8 +27,6 @@ const externals = {
   'prop-types': 'PropTypes'
 }
 
-
-
 module.exports = {
   cache: true,
   context: path.resolve(__dirname, './src'),
@@ -39,7 +36,7 @@ module.exports = {
       './index.js' // 生产环境只需要app的入口文件
 
     ],
-    vendor: ['moment'],
+    vendor: lib,
   },
   output: {
     filename: 'js/[name].[hash:12].js',
@@ -55,8 +52,9 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        // use: ['babel-loader?cacheDirectory'],
-        use: 'happypack/loader',
+        use: [
+          'babel-loader?cacheDirectory'
+        ],
         exclude: /^node_modules$/,
       },
       {
@@ -206,6 +204,31 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
+    
+    new webpack.optimize.ModuleConcatenationPlugin(),
+  
+    new webpack.optimize.CommonsChunkPlugin({
+      names: 'vendor',
+      minChunks: Infinity
+    }),
+  
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      chunks: 'vendor'
+    }),
+  
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require("./public/lib/min/manifest.json") // eslint-disable-line
+    }),
+  
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /(en-gb|zh-cn).js/
+    ),
+    
+   // 配置打包后的样式文件名称
+    new ExtractTextPlugin({filename: 'css/[name].[contenthash].css', allChunks: true, disable: false}),
   
     new UglifyJsPlugin({
       uglifyOptions: {
@@ -222,13 +245,18 @@ module.exports = {
       },
       sourceMap: false,
       cache: true,
-      parallel: os.cpus().length * 6
+      parallel: 8
     }),
+
+    new AddAssetHtmlPlugin([
+      {
+        filepath: path.resolve(__dirname, './public/lib/min/lib.495f93d76.js'),
+        outputPath: 'lib/min',
+        publicPath: '/dist/lib/min',
+        includeSourcemap: false
+      }
+    ]),
   
-    new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html',
       hash: false,
@@ -241,31 +269,6 @@ module.exports = {
         removeAttributeQuotes: true
       }
     }),
-   // 配置打包后的样式文件名称
-    new ExtractTextPlugin({filename: 'css/[name].[contenthash].css', allChunks: true, disable: false}),
-
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('./public/lib/min/manifest.json')
-    }),
-
-    new webpack.ContextReplacementPlugin(
-     /moment[\/\\]locale$/,
-     /(en-gb|zh-cn).js/
-    ),
-  
-    new HappyPack({
-      loaders: [ 'babel-loader?cacheDirectory' ]
-    }),
-
-    new AddAssetHtmlPlugin([
-      {
-        filepath: path.resolve(__dirname, './public/lib/min/lib.a7c1fbede.js'),
-        outputPath: 'lib/min',
-        publicPath: '/dist/lib/min',
-        includeSourcemap: false
-      }
-    ]),
 
     // 可视化分析工具
     new BundleAnalyzerPlugin()

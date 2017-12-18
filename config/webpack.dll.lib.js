@@ -4,7 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const lib = require('./lib.dependencies')
 const isDebug = process.env.NODE_ENV === 'development'
-const publicPath = '../public/lib'
+const publicPath = './public/lib'
 
 const outputPath = isDebug ? path.join(__dirname, `${publicPath}/debug`) : path.join(__dirname, `${publicPath}/min`)
 
@@ -46,8 +46,8 @@ if (!isDebug) {
 }
 
 module.exports = {
-  devtool: 'source-map',
-  context: path.resolve(__dirname, '../src'),
+  devtool: '#source-map',
+  context: path.resolve(__dirname, '..'),
   entry: {
     lib: lib
   },
