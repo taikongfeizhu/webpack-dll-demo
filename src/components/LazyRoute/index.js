@@ -4,7 +4,8 @@ import { Route } from 'react-router-dom'
 
 const LazyRoute = ({ component, ...rest }) => (
   <Route {...rest} render={(props) => {
-    return <AsyncComponent {...props} component={component} {...rest}/>
+    const { lazyComp, injector = null } = component
+    return <AsyncComponent {...props} component={lazyComp} injector={injector} {...rest}/>
   }}/>
 )
 

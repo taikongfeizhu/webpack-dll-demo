@@ -4,10 +4,10 @@ import NotFound from './NotFound'
 import LazyRoute from '../components/LazyRoute'
 
 import Home from './Home'
-import List from '../views/List'
-import Content from '../views/Content'
-import Detail from '../views/Detail'
-import Welcome, { injector as WelcomeInject } from '../views/Welcome'
+import List from 'views/List'
+import Content from 'views/Content'
+import Detail from 'views/Detail'
+import Welcome from 'views/Welcome'
 
 import {
   Route,
@@ -31,9 +31,9 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route path="/home" component={Home}/>
           <Route path="/detail" component={Detail(store)}/>
+
           <LazyRoute
             component={Welcome}
-            injector={WelcomeInject}
             store={store}
             path="/inject"
           />
