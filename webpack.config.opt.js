@@ -1,22 +1,22 @@
-const path = require('path')
-const os = require('os')
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BundlePlugin = require('webpack-bundle-analyzer')
+const path = require('path');
+const os = require('os');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundlePlugin = require('webpack-bundle-analyzer');
 const autoprefixer = require('autoprefixer'); // 自动加前缀的插件
-const BundleAnalyzerPlugin = BundlePlugin.BundleAnalyzerPlugin
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
-const lib = require('./config/lib.dependencies')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+
+const BundleAnalyzerPlugin = BundlePlugin.BundleAnalyzerPlugin;
 
 // 判断当前运行环境是开发模式还是生产模式
-const nodeEnv = process.env.NODE_ENV || 'development'
-const __DEV__ = nodeEnv !== 'production'
-console.log("当前运行环境：", __DEV__ ? 'development' : 'production')
+const nodeEnv = process.env.NODE_ENV || 'development';
+const __DEV__ = nodeEnv !== 'production';
+console.log('当前运行环境：', __DEV__ ? 'development' : 'production');
 
 // 是否使用preact
-const __PREACT__ = false
+const __PREACT__ = false;
 
 const externals = {
   axios: 'axios',
@@ -26,7 +26,7 @@ const externals = {
   'react-redux': 'ReactRedux',
   'react-router-dom': 'ReactRouterDOM',
   'prop-types': 'PropTypes'
-}
+};
 
 module.exports = {
   cache: true,
@@ -37,7 +37,7 @@ module.exports = {
       './index.js' // 生产环境只需要app的入口文件
 
     ],
-    vendor: lib,
+    vendor: ['history']
   },
   output: {
     filename: 'js/[name].[hash:12].js',
@@ -56,7 +56,7 @@ module.exports = {
         use: [
           'babel-loader?cacheDirectory'
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /\.css$/,
@@ -69,14 +69,14 @@ module.exports = {
               options: {
                 plugins() {
                   return [
-                    autoprefixer,
+                    autoprefixer
                   ];
-                },
-              },
-            },
-          ],
+                }
+              }
+            }
+          ]
         }),
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /\.less$/,
@@ -89,15 +89,15 @@ module.exports = {
               options: {
                 plugins() {
                   return [
-                    autoprefixer,
+                    autoprefixer
                   ];
-                },
-              },
+                }
+              }
             },
-            'less-loader',
-          ],
+            'less-loader'
+          ]
         }),
-        include: /node_modules/,
+        include: /node_modules/
       },
       {
         // 生产环境下将工程中的less打包成独立文件
@@ -110,15 +110,15 @@ module.exports = {
               options: {
                 plugins() {
                   return [
-                    autoprefixer,
+                    autoprefixer
                   ];
-                },
-              },
+                }
+              }
             },
-            'less-loader',
-          ],
+            'less-loader'
+          ]
         }),
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
 
       {
@@ -128,11 +128,11 @@ module.exports = {
             // 使用file-loader
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]?[hash]',
-            },
-          },
+              name: '[name].[ext]?[hash]'
+            }
+          }
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         // 匹配.html文件
@@ -141,11 +141,11 @@ module.exports = {
           {
             loader: 'html-loader',
             options: {
-              attrs: ['img:src', 'link:href'],
-            },
-          },
+              attrs: ['img:src', 'link:href']
+            }
+          }
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         // 处理静态资源
@@ -155,10 +155,10 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
-            },
-          },
-        ],
+              limit: 10000
+            }
+          }
+        ]
       },
       {
         test: /\.bundle\.js$/,
@@ -171,7 +171,7 @@ module.exports = {
             lazy: true
           }
         }, {
-          loader: 'babel-loader',
+          loader: 'babel-loader'
         }]
       }
     ]
@@ -180,20 +180,20 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js', '.less', '.json'],
     alias: {
-      "actions": path.resolve(__dirname, "src/actions"),
-      "views": path.resolve(__dirname, "src/views"),
-      "constant": path.resolve(__dirname, "src/constant"),
-      "static": path.resolve(__dirname, "src/static"),
-      "routes": path.resolve(__dirname, "src/routes"),
-      "components": path.resolve(__dirname, "src/components"),
-      "containers": path.resolve(__dirname, "src/containers"),
-      "reducers": path.resolve(__dirname, "src/reducers"),
-      "api": path.resolve(__dirname, "src/api"),
-      "utils": path.resolve(__dirname, "src/utils"),
-      "store": path.resolve(__dirname, "src/store"),
-      'react': __PREACT__ ? 'preact-compat/dist/preact-compat': 'react',
+      actions: path.resolve(__dirname, 'src/actions'),
+      views: path.resolve(__dirname, 'src/views'),
+      constant: path.resolve(__dirname, 'src/constant'),
+      static: path.resolve(__dirname, 'src/static'),
+      routes: path.resolve(__dirname, 'src/routes'),
+      components: path.resolve(__dirname, 'src/components'),
+      containers: path.resolve(__dirname, 'src/containers'),
+      reducers: path.resolve(__dirname, 'src/reducers'),
+      api: path.resolve(__dirname, 'src/api'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      store: path.resolve(__dirname, 'src/store'),
+      react: __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react',
       'react-dom': __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react-dom',
-      'create-react-class': __PREACT__? 'preact-compat/lib/create-react-class' : 'create-react-class'
+      'create-react-class': __PREACT__ ? 'preact-compat/lib/create-react-class' : 'create-react-class'
     }
   },
 
@@ -203,46 +203,46 @@ module.exports = {
     // 添加系统全局变量
     new webpack.DefinePlugin({ // 编译成生产版本
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+        NODE_ENV: JSON.stringify('production')
+      }
     }),
-    
+
     new webpack.optimize.ModuleConcatenationPlugin(),
-  
+
     new webpack.optimize.CommonsChunkPlugin({
       names: 'vendor',
       minChunks: Infinity
     }),
-  
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: 'vendor'
     }),
-  
+
     new webpack.DllReferencePlugin({
       context: __dirname,
-      manifest: require("./public/lib/min/manifest.json") // eslint-disable-line
+      manifest: require('./public/lib/min/manifest.json') // eslint-disable-line
     }),
-  
+
     new webpack.ContextReplacementPlugin(
       /moment[\/\\]locale$/,
       /(en-gb|zh-cn).js/
     ),
-    
-   // 配置打包后的样式文件名称
-    new ExtractTextPlugin({filename: 'css/[name].[contenthash].css', allChunks: true, disable: false}),
-  
+
+    // 配置打包后的样式文件名称
+    new ExtractTextPlugin({ filename: 'css/[name].[contenthash].css', allChunks: true, disable: false }),
+
     new UglifyJsPlugin({
       uglifyOptions: {
         ie8: false,
         ecma: 8,
         mangle: true,
         output: {
-          comments: false,
+          comments: false
         },
         compress: {
-          warnings: false,
-        },
+          warnings: false
+        }
       },
       sourceMap: false,
       cache: true,
@@ -251,19 +251,19 @@ module.exports = {
 
     new AddAssetHtmlPlugin([
       {
-        filepath: path.resolve(__dirname, './public/lib/min/lib.495f93d76.js'),
+        filepath: path.resolve(__dirname, './public/lib/min/lib.42b050340.js'),
         outputPath: 'lib/min',
         publicPath: '/dist/lib/min',
         includeSourcemap: false
       }
     ]),
-  
+
     new HtmlWebpackPlugin({
       template: 'index.html',
       hash: false,
       filename: 'index.html',
       inject: 'body',
-      chunks:['manifest', 'vendor', 'index'],
+      chunks: ['manifest', 'vendor', 'index'],
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -274,4 +274,4 @@ module.exports = {
     // 可视化分析工具
     new BundleAnalyzerPlugin()
   ]
-}
+};

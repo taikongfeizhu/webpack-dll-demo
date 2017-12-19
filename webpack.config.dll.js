@@ -1,14 +1,15 @@
-/* webpack --config  webpack.dll.config.js --progress */
+/* webpack --config  webpack.config.dll.js --progress */
 
-const path = require('path')
-const webpack = require('webpack')
-const lib = require('./lib.dependencies')
-const isDebug = process.env.NODE_ENV === 'development'
-const publicPath = './public/lib'
+const path = require('path');
+const lib = require('./config/lib.dependencies');
+const webpack = require('webpack');
 
-const outputPath = isDebug ? path.join(__dirname, `${publicPath}/debug`) : path.join(__dirname, `${publicPath}/min`)
+const isDebug = process.env.NODE_ENV === 'development';
+const publicPath = './public/lib';
 
-console.log('isDebug', isDebug)
+const outputPath = isDebug ? path.join(__dirname, `${publicPath}/debug`) : path.join(__dirname, `${publicPath}/min`);
+
+console.log('isDebug', isDebug);
 
 const plugin = [
   new webpack.DllPlugin({
@@ -26,7 +27,7 @@ const plugin = [
     name: '[name]',
     context: __dirname
   })
-]
+];
 
 if (!isDebug) {
   plugin.push(
@@ -38,18 +39,21 @@ if (!isDebug) {
         except: ['$', 'exports', 'require']
       },
       exclude: /\.min\.js$/,
-      // mangle:true,
       compress: { warnings: false },
       output: { comments: false }
-    })
-  )
+    }),
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /(en-gb|zh-cn).js/
+    )
+  );
 }
 
 module.exports = {
   devtool: '#source-map',
-  context: path.resolve(__dirname, '..'),
+  context: path.resolve(__dirname),
   entry: {
-    lib: lib
+    lib
   },
   output: {
     path: outputPath,
@@ -62,4 +66,4 @@ module.exports = {
     library: '[name]'
   },
   plugins: plugin
-}
+};

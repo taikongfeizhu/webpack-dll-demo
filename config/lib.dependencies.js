@@ -12,7 +12,7 @@ const lib = [
   'prop-types',
   'immutable',
   'babel-polyfill'
-]
+];
 
 
-module.exports = lib
+module.exports = lib;

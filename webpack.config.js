@@ -1,18 +1,19 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HappyPack = require('happypack')
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HappyPack = require('happypack');
+const webpackServerConfig = require('./server/server.config');
+const lib = require('./config/lib.dependencies');
+
 const HappyThreadPool = HappyPack.ThreadPool({ size: 6 });
-const webpackServerConfig = require('./server/server.config')
-const lib = require('./config/lib.dependencies')
 
 // 判断当前运行环境是开发模式还是生产模式
-const nodeEnv = process.env.NODE_ENV || 'development'
-const __DEV__ = nodeEnv !== 'production'
-console.log("当前运行环境：", __DEV__ ? 'development' : 'production')
+const nodeEnv = process.env.NODE_ENV || 'development';
+const __DEV__ = nodeEnv !== 'production';
+console.log('当前运行环境：', __DEV__ ? 'development' : 'production');
 
 // 是否使用preact
-const __PREACT__ = false
+const __PREACT__ = false;
 
 // 区别path和 publicPath的作用
 // path 用来存放打包后文件的输出目录
@@ -26,7 +27,7 @@ const externals = {
   'react-redux': 'ReactRedux',
   'react-router-dom': 'ReactRouterDOM',
   'prop-types': 'PropTypes'
-}
+};
 
 module.exports = {
   cache: true,
@@ -45,10 +46,10 @@ module.exports = {
       // 为热替换(HMR)打包好代码
       // only- 意味着只有成功更新运行代码才会执行热替换(HMR)
 
-      './index.js',
+      './index.js'
       // app 的入口文件
     ],
-    vendor: lib,
+    vendor: lib
   },
   output: {
     filename: 'js/[name].[hash:12].js',
@@ -68,33 +69,33 @@ module.exports = {
         test: /\.(js|jsx)$/,
         // use: ['babel-loader?cacheDirectory'],
         use: 'happypack/loader?id=jsx',
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          'css-loader'
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
           'css-loader',
-          'less-loader',
+          'less-loader'
         ],
-        include: /node_modules/,
+        include: /node_modules/
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
           'css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]',
-          'less-loader',
+          'less-loader'
         ],
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         // 匹配.html文件
@@ -103,11 +104,11 @@ module.exports = {
           {
             loader: 'html-loader',
             options: {
-              attrs: ['img:src', 'link:href'],
-            },
-          },
+              attrs: ['img:src', 'link:href']
+            }
+          }
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /favicon\.png$/,
@@ -116,11 +117,11 @@ module.exports = {
             // 使用file-loader
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]?[hash]',
-            },
-          },
+              name: '[name].[ext]?[hash]'
+            }
+          }
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         // 处理静态资源
@@ -130,10 +131,10 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
-            },
-          },
-        ],
+              limit: 10000
+            }
+          }
+        ]
       },
       {
         test: /\.bundle\.js$/,
@@ -146,7 +147,7 @@ module.exports = {
             lazy: true
           }
         }, {
-          loader: 'babel-loader',
+          loader: 'babel-loader'
         }]
       }
     ]
@@ -155,20 +156,20 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js', '.less', '.json'],
     alias: {
-      "actions": path.resolve(__dirname, "src/actions"),
-      "views": path.resolve(__dirname, "src/views"),
-      "constant": path.resolve(__dirname, "src/constant"),
-      "static": path.resolve(__dirname, "src/static"),
-      "routes": path.resolve(__dirname, "src/routes"),
-      "components": path.resolve(__dirname, "src/components"),
-      "containers": path.resolve(__dirname, "src/containers"),
-      "reducers": path.resolve(__dirname, "src/reducers"),
-      "api": path.resolve(__dirname, "src/api"),
-      "utils": path.resolve(__dirname, "src/utils"),
-      "store": path.resolve(__dirname, "src/store"),
-      'react': __PREACT__ ? 'preact-compat/dist/preact-compat': 'react',
+      actions: path.resolve(__dirname, 'src/actions'),
+      views: path.resolve(__dirname, 'src/views'),
+      constant: path.resolve(__dirname, 'src/constant'),
+      static: path.resolve(__dirname, 'src/static'),
+      routes: path.resolve(__dirname, 'src/routes'),
+      components: path.resolve(__dirname, 'src/components'),
+      containers: path.resolve(__dirname, 'src/containers'),
+      reducers: path.resolve(__dirname, 'src/reducers'),
+      api: path.resolve(__dirname, 'src/api'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      store: path.resolve(__dirname, 'src/store'),
+      react: __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react',
       'react-dom': __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react-dom',
-      'create-react-class': __PREACT__? 'preact-compat/lib/create-react-class' : 'create-react-class'
+      'create-react-class': __PREACT__ ? 'preact-compat/lib/create-react-class' : 'create-react-class'
     }
   },
 
@@ -182,12 +183,12 @@ module.exports = {
       names: 'vendor',
       minChunks: Infinity
     }),
-  
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: 'vendor'
     }),
-    
+
     new webpack.HotModuleReplacementPlugin(),
     // 开启全局的模块热替换(HMR)
     new webpack.NamedModulesPlugin(),
@@ -197,9 +198,9 @@ module.exports = {
     new HappyPack({
       id: 'jsx',
       threadPool: HappyThreadPool,
-      loaders: [ 'babel-loader' ]
+      loaders: ['babel-loader']
     }),
-  
+
     new webpack.ContextReplacementPlugin(
       /moment[\/\\]locale$/,
       /(en-gb|zh-cn).js/
@@ -210,12 +211,12 @@ module.exports = {
       hash: false,
       filename: 'index.html',
       inject: 'body',
-      chunks:['manifest', 'vendor', 'index'],
+      chunks: ['manifest', 'vendor', 'index'],
       minify: {
         collapseWhitespace: true,
         removeComments: true,
         removeAttributeQuotes: true
       }
-    }),
+    })
   ]
-}
+};
