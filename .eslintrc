@@ -36,6 +36,7 @@
     "comma-dangle": [1, "never"],
     "no-var": 0,
     "no-underscore-dangle": 1,
+    "class-methods-use-this": 1,
     "new-cap": 0,
     "func-names": 0,
     "arrow-body-style": 0,
