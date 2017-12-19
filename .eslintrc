@@ -1,38 +1,70 @@
 {
-  "extends":[
-    "airbnb",
-    "strict-react"
+  "extends": [
+    "eslint-config-airbnb"
   ],
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "jest": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
   "plugins": [
-    "eslint-plugin-react",
-    "react"
+    "react",
+    "babel"
   ],
-  "ecmaFeatures": {"jsx": true},
+
+  "globals": {
+    "__DEV__"      : false,
+    "__TEST__"     : false,
+    "__PROD__"     : false,
+    "__COVERAGE__" : false
+  },
+
   "rules": {
     "indent": [1, 2],
-    "comma-dangle": [1, "never"],
-    "func-names": 0,
     "strict": [2, "global"],
+    "comma-dangle": [1, "never"],
     "no-var": 0,
+    "no-underscore-dangle": 1,
     "new-cap": 0,
-    "no-undef": 1,
-    "import/no-unresolved":0,
-    "vars-on-top": 0,
-    "semi": 0,
-    "no-console": 0,
-    "camelcase": 2,
-    "global-require": 0,
-    "max-len": 0,
-    "object-shorthand":0,
-    "arrow-body-style": 2,
-    "object-curly-spacing": [2, "always"],
-    "dot-notation": [2, {"allowPattern": "^[a-z]+(_[a-z]+)+$"}],
-    "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
-    "react/react-in-jsx-scope": 0,
-    "react/jsx-space-before-closing": 0,
-    "react/no-multi-comp": 0,
+    "func-names": 0,
+    "arrow-body-style": 0,
+    "arrow-parens": 0,
+    "react/sort-comp": 0,
+    "react/prop-types": 0,
     "react/forbid-prop-types": 0,
-    "react/jsx-no-bind": 0,
-    "react/jsx-closing-bracket-location": [1, {"location": "after-props"}]
+    "react/jsx-first-prop-new-line": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".md"] }],
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "prefer-destructuring": 0,
+    "import/prefer-default-export": 0,
+    "no-param-reassign": 0,
+    "global-require": 0,
+    "no-return-assign": 0,
+    "max-len": 0,
+    "consistent-return": 0,
+    "no-redeclare": 0,
+    "react/require-extension": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/anchor-has-content": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "react/no-danger": 0,
+    "object-curly-spacing": [2, "always"],
+    "function-paren-newline": 0,
+    "object-curly-newline": 0,
+    "no-restricted-globals": 0
   }
 }
