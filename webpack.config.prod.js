@@ -179,6 +179,7 @@ module.exports = {
     extensions: ['.jsx', '.js', '.less', '.json'],
     alias: {
       "actions": path.resolve(__dirname, "src/actions"),
+      "views": path.resolve(__dirname, "src/views"),
       "constant": path.resolve(__dirname, "src/constant"),
       "static": path.resolve(__dirname, "src/static"),
       "routes": path.resolve(__dirname, "src/routes"),

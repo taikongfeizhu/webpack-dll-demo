@@ -1,4 +1,5 @@
 const path = require('path')
+const os = require('os')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -180,6 +181,7 @@ module.exports = {
     extensions: ['.jsx', '.js', '.less', '.json'],
     alias: {
       "actions": path.resolve(__dirname, "src/actions"),
+      "views": path.resolve(__dirname, "src/views"),
       "constant": path.resolve(__dirname, "src/constant"),
       "static": path.resolve(__dirname, "src/static"),
       "routes": path.resolve(__dirname, "src/routes"),
@@ -241,11 +243,10 @@ module.exports = {
         compress: {
           warnings: false,
         },
-        warnings: false
       },
       sourceMap: false,
       cache: true,
-      parallel: 8
+      parallel: os.cpus().length * 2
     }),
 
     new AddAssetHtmlPlugin([
