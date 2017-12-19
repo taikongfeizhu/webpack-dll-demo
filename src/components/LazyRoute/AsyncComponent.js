@@ -1,46 +1,61 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-export default class AsyncComponent extends Component {
-
-  constructor(props) {
+class AsyncComponent extends React.Component {
+  constructor (props) {
     super(props)
+    
     this.state = {
-      loaded: false,
-      showLoader: false
+      Component: null
     }
   }
-
-  componentDidMount() {
-    this.loadComponent(this.props.component);
-  }
-
+  
   componentWillReceiveProps(nextProps) {
     if (nextProps.component !== this.props.component) {
       this.setState({loaded: false});
-      this.loadComponent(nextProps.component);
+      this.loadComponent(nextProps.component, nextProps.store);
     }
   }
-
-  loadComponent(componentPromise) {
-    const { injector, store, chunkName: key } = this.props
-    componentPromise().then((module) => {
-      this.component = module.default;
-      this.setState({loaded: true});
-      if (injector) {
-        injector(store, key)
-      }
-    }).catch((err) => {
-      console.error(`Cannot load component in <LazyRoute />`);
-      throw err;
-    })
-  }
-
-  render() {
-    const {loaded} = this.state
-    if (loaded === true) {
-      return <this.component {...this.props} />
-    } else {
-      return (<div>Loading...</div>)
+  
+  componentDidMount () {
+    if (this.hasLoadedComponent()) {
+      return
     }
+    const { component, store } = this.props
+    this.loadComponent(component, store);
+  }
+  
+  checkComponent (component) {
+    // 适配组件传入和路由注入传入两种写法
+    if (typeof component === 'function') {
+      return { lazyComp: component }
+    }
+    return component
+  }
+  
+  loadComponent(component, store) {
+    const { lazyComp, injector = null, key } = this.checkComponent(component)
+    lazyComp()
+      .then(module => module.default)
+      .then((Component) => {
+        this.setState({ Component })
+        if(injector){
+          injector(store, key)
+        }
+      })
+      .catch((err) => {
+        console.error(`Cannot load component in <AsyncComponent />`)
+        throw err
+      })
+  }
+  
+  hasLoadedComponent () {
+    return this.state.Component !== null
+  }
+  
+  render () {
+    const { Component } = this.state
+    return (Component) ? <Component {...this.props} /> : <span>Loading...</span>
   }
 }
+
+export default AsyncComponent

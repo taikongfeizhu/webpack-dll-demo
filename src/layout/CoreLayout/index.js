@@ -49,10 +49,6 @@ class CoreLayout extends React.Component {
            </li>
            <li>
              <Icon type="pie-chart" />
-             <span><Link to="/dashboard">dashboard</Link></span>
-           </li>
-           <li>
-             <Icon type="pie-chart" />
              <span><Link to="/inject">inject</Link></span>
            </li>
          </ul>

@@ -16,8 +16,6 @@ import {
   Switch
 } from 'react-router-dom'
 
-const { AsyncComponet } = LazyRoute
-
 class App extends Component {
   constructor(props){
     super(props)
@@ -37,10 +35,12 @@ class App extends Component {
             store={store}
             path="/inject"
           />
-
-          <Route path="/async-componet" render={(props)=>
-            <AsyncComponet {...props} component={()=>import(/* webpackChunkName: "asyc" */ './Async')} />
-          }/>
+  
+          <LazyRoute
+            component={()=>import(/* webpackChunkName: "asyc" */ './Async')}
+            store={store}
+            path="/async-componet"
+          />
 
           <Route path="/list" render={(props)=>
             <List {...props}>
