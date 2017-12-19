@@ -48,7 +48,6 @@ class App extends Component {
                 <Route path="/list/content" component={Content}/>
                 <LazyRoute
                   component={Welcome}
-                  injector={WelcomeInject}
                   store={store}
                   path="/list/welcome"
                 />
