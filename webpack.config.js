@@ -197,6 +197,7 @@ module.exports = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HappyPack({
       id: 'jsx',
+      cache: true,
       threadPool: HappyThreadPool,
       loaders: ['babel-loader']
     }),

@@ -1,16 +1,15 @@
-import React from 'react'
-import { injectStore } from 'store'
+import { injectStore } from 'store';
 
 const routeModule = {
 
   key: 'welcome',
-  
-  lazyComp: () => import(/* webpackChunkName: "welcome" */ './container'),
-  
-  injector: (store, key) => {
-    const modules = require('./modules')
-    injectStore(store, key, modules)
-  }
-}
 
-export default routeModule
+  lazyComp: () => import(/* webpackChunkName: "welcome" */ './container'),
+
+  injector: (store, key) => {
+    const modules = require('./modules');
+    injectStore(store, key, modules);
+  }
+};
+
+export default routeModule;
