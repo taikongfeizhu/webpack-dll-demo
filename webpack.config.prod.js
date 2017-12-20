@@ -227,8 +227,12 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
 
-    // new webpack.optimize.ModuleConcatenationPlugin(),
-    // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en-gb|zh-cn).js/),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /(en-gb|zh-cn).js/
+    ),
 
     new HtmlWebpackPlugin({
       template: 'index.html',

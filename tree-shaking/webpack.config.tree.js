@@ -154,6 +154,8 @@ module.exports = {
     // scope-hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
 
+    // uglifyjs plugin
+    new UglifyJSPlugin(),
 
     new HtmlWebpackPlugin({
       template: 'index.html',
