@@ -1,15 +1,15 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // 判断当前运行环境是开发模式还是生产模式
-const nodeEnv = process.env.NODE_ENV || 'development'
-const __DEV__ = nodeEnv !== 'production'
-console.log("当前运行环境：", __DEV__ ? 'development' : 'production')
+const nodeEnv = process.env.NODE_ENV || 'development';
+const __DEV__ = nodeEnv !== 'production';
+console.log('当前运行环境：', __DEV__ ? 'development' : 'production');
 
 // 是否使用preact
-const __PREACT__ = false
+const __PREACT__ = false;
 
 // 区别path和 publicPath的作用
 // path 用来存放打包后文件的输出目录
@@ -21,7 +21,7 @@ module.exports = {
   devtool: '#source-map',
   entry: {
     index: [
-      './index.js',
+      './index.js'
     ]
   },
   output: {
@@ -41,33 +41,33 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         use: ['babel-loader?cacheDirectory'],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          'css-loader'
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
           'css-loader',
-          'less-loader',
+          'less-loader'
         ],
-        include: /node_modules/,
+        include: /node_modules/
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
           'css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]',
-          'less-loader',
+          'less-loader'
         ],
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         // 匹配.html文件
@@ -76,11 +76,11 @@ module.exports = {
           {
             loader: 'html-loader',
             options: {
-              attrs: ['img:src', 'link:href'],
-            },
-          },
+              attrs: ['img:src', 'link:href']
+            }
+          }
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         test: /favicon\.png$/,
@@ -89,11 +89,11 @@ module.exports = {
             // 使用file-loader
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]?[hash]',
-            },
-          },
+              name: '[name].[ext]?[hash]'
+            }
+          }
         ],
-        exclude: /^node_modules$/,
+        exclude: /^node_modules$/
       },
       {
         // 处理静态资源
@@ -103,10 +103,10 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
-            },
-          },
-        ],
+              limit: 10000
+            }
+          }
+        ]
       },
       {
         test: /\.bundle\.js$/,
@@ -119,7 +119,7 @@ module.exports = {
             lazy: true
           }
         }, {
-          loader: 'babel-loader',
+          loader: 'babel-loader'
         }]
       }
     ]
@@ -128,20 +128,12 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js', '.less', '.json'],
     alias: {
-      "actions": path.resolve(__dirname, "src/actions"),
-      "views": path.resolve(__dirname, "src/views"),
-      "constant": path.resolve(__dirname, "src/constant"),
-      "static": path.resolve(__dirname, "src/static"),
-      "routes": path.resolve(__dirname, "src/routes"),
-      "components": path.resolve(__dirname, "src/components"),
-      "containers": path.resolve(__dirname, "src/containers"),
-      "reducers": path.resolve(__dirname, "src/reducers"),
-      "api": path.resolve(__dirname, "src/api"),
-      "utils": path.resolve(__dirname, "src/utils"),
-      "store": path.resolve(__dirname, "src/store"),
-      'react': __PREACT__ ? 'preact-compat/dist/preact-compat': 'react',
+      api: path.resolve(__dirname, 'src/api'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      store: path.resolve(__dirname, 'src/store'),
+      react: __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react',
       'react-dom': __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react-dom',
-      'create-react-class': __PREACT__? 'preact-compat/lib/create-react-class' : 'create-react-class'
+      'create-react-class': __PREACT__ ? 'preact-compat/lib/create-react-class' : 'create-react-class'
     }
   },
 
@@ -152,39 +144,28 @@ module.exports = {
   plugins: [
     // 将第三方库单独打包
     new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
+
     new webpack.HotModuleReplacementPlugin(),
     // 开启全局的模块热替换(HMR)
+
     new webpack.NamedModulesPlugin(),
     // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
+
     // scope-hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
-  
-    new UglifyJSPlugin({
-      uglifyOptions: {
-        ecma: 8,
-        mangle: true,
-        output: {
-          comments: false,
-        },
-        compress: {
-          warnings: false,
-        },
-      },
-      sourceMap: false,
-      parallel: 2
-    }),
+
 
     new HtmlWebpackPlugin({
       template: 'index.html',
       hash: false,
       filename: 'index.html',
       inject: 'body',
-      chunks:['manifest', 'vendor', 'index'],
+      chunks: ['manifest', 'vendor', 'index'],
       minify: {
         collapseWhitespace: true,
         removeComments: true,
         removeAttributeQuotes: true
       }
-    }),
+    })
   ]
-}
+};
