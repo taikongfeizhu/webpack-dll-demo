@@ -63,7 +63,7 @@
 
 1、 拉取项目到本地开发目录下
 ```shell
-git clone https://github.com/taikongfeizhu/webpack-dll-demo.git
+git clone git@github.com:taikongfeizhu/webpack-dll-demo.git
 ```
 
 2、 安装依赖包，如果安装时间过长可以修改npm的registry,推荐实用npm5+或者yarn进行安装
