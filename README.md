@@ -32,7 +32,7 @@
      - [x] hmr
      - [x] mock
      - [x] http-proxy-middleware
-       [x] react
+- [x] react
      - [x] react 16+
      - [ ] preact
      - [x] react router4
@@ -51,7 +51,7 @@
 
 3、新增preact支持，如果你觉得preact的兼容性不好，可以切换回react，只需要删除webpack.config的alias的几行配置。
 
-```JavaScript
+```javascript
  'react': __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react', //如果你不想要preact，可以删除这一行
 'react-dom': __PREACT__ ? 'preact-compat/dist/preact-compat' : 'react-dom', //如果你不想要preact，可以删除这一行
 'create-react-class': 'preact-compat/lib/create-react-class' //如果你不想要preact，可以删除这一行
@@ -77,18 +77,18 @@ npm install 或者 yarn install
 ```
 
 3、运行demo。
- ```nodemon
+ ```shell
  npm start
  ```
 
 3、打开浏览器访问3000端口.
-```nodemon
+```shell
 http://127.0.0.1:3000
 ```
 
 4、打包发布: 注意修改publicPath以适配生产环境地址，本例中提供了两套打包方案分别对应webpack.config.prod.js和webpack.config.opt.js，后者为优化配置，构建速度为前着的两倍左右，可供参考：
 
-```nodemon
+```shell
 标准构建
 npm run build
 
@@ -97,7 +97,7 @@ npm run build:opt
 ```
 
 5、为了方便用户能直接感受和领略webpack3的两大新特性：tree-shaking和scope Hoisting，项目中也配置了支持如下特性的简要配置，在tree-shaking专属文件夹中，执行如下脚本即可体验：
-```nodemon
+```shell
 npm run tree
 ```
 
@@ -109,9 +109,8 @@ docs中的文档教程为网上收集的一些webpack+react开发的最佳实践
 
 #### 关于react-router4的注意事项
 
-```text
 react-router2和react-router4为跨代升级的两个版本，互不兼容，但是官方承诺会同时维护，所以可以根据实际项目和掌握情况灵活使用，本例子中在router加载的时候将redux中的state和redux-saga也做成了动态注入，实现了component和state都为异步注入的形式提升性能，具体实现后续会有专门的文章来介绍，可以先看项目中的routes和views的代码实现
-```
+
 #### 项目结构
 
 ```text
