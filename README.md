@@ -149,7 +149,7 @@ react-router2和react-router4为跨代升级的两个版本，互不兼容，但
 
 #### 参考资料
 
-[1]: https://webpack.js.org/concepts/
-[2]: https://taikongfeizhu.github.io/webpack3-in-action/index.html
-[3]: https://segmentfault.com/a/1190000011765141
-[4]: https://github.com/hyy1115/react-latest-framework
+ * [1]: https://webpack.js.org/concepts/
+ * [2]: https://taikongfeizhu.github.io/webpack3-in-action/index.html
+ * [3]: https://segmentfault.com/a/1190000011765141
+ * [4]: https://github.com/hyy1115/react-latest-framework
