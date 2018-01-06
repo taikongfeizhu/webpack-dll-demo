@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route, Redirect, Match, Switch } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Route, Redirect, Match, Switch} from 'react-router-dom';
 
 import List from 'views/List';
 import Content from 'views/Content';
@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   render() {
-    const { store } = this.props;
+    const {store} = this.props;
     return (
       <CoreLayout>
         <Switch>
